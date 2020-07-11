@@ -4,11 +4,15 @@ import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.Bin;
 import com.aerospike.client.Key;
 import com.aerospike.client.Record;
+import com.aerospike.client.policy.BatchPolicy;
+import com.aerospike.client.policy.QueryPolicy;
 import com.aerospike.client.policy.WritePolicy;
+import com.aerospike.client.query.RecordSet;
+import com.aerospike.client.query.Statement;
 
 public class AerospikeService {
 
-	public void writeRecords(AerospikeClient client, WritePolicy policy, Key key, Bin[] bins) {
+	public void writeRecord(AerospikeClient client, WritePolicy policy, Key key, Bin[] bins) {
 
 		// # NameSpace : Schema/Database/Top-Level-container
 		// # Set: table
@@ -49,7 +53,30 @@ public class AerospikeService {
 		}
 	}
 
-	public void displayRecords() {
-       // # batch processing of records
+	public void batchDisplayRecords(AerospikeClient client, BatchPolicy policy, Key[] keys) {
+		// # batch processing of records
+		Record[] records = client.get(policy, keys);
+
+		for (Record record : records) {
+			System.out.println(record.getLong("id") + "\t" + record.getString("first_name") + "\t"
+					+ record.getString("last_name"));
+		}
 	}
+
+	public void queryRecords(AerospikeClient client, QueryPolicy policy, Statement statement) {
+		// This to query the records using secondary indexes.
+
+		RecordSet rs = client.query(policy, statement);
+		try {
+			while (rs.next()) {
+				Key key = rs.getKey();
+				Record record = rs.getRecord();
+				System.out.println(record.getLong("id") + "\t" + record.getString("first_name") + "\t"
+						+ record.getString("last_name"));
+			}
+		} finally {
+			rs.close();
+		}
+	}
+
 }
