@@ -73,15 +73,17 @@ public class App {
 
 		// ################## Querying Records ##################################
 		// This is to query the database using secondary index.
+
 		
 		/*
-		 * Statement stmt=new Statement(); stmt.setNamespace("test");
-		 * stmt.setSetName("myset"); stmt.setBinNames("id","first_name","last_name");
-		 * stmt.setFilter(Filter.equal("first_name", "Tony"));
+		 * Statement stmt = new Statement(); stmt.setNamespace("test");
+		 * stmt.setIndexName("mysetIndex"); stmt.setSetName("myset");
+		 * stmt.setBinNames("id", "first_name", "last_name");
+		 * stmt.setFilter(Filter.equal("first_name", "Peter"));
 		 * service.queryRecords(client, null, stmt);
 		 */
-		   
-		   
+		 
+
 		// ################## Closing the connection ############################
 		client.close();
 

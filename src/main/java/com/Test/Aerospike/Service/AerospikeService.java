@@ -1,5 +1,7 @@
 package com.Test.Aerospike.Service;
 
+import java.util.Optional;
+
 import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.Bin;
 import com.aerospike.client.Key;
@@ -66,13 +68,19 @@ public class AerospikeService {
 	public void queryRecords(AerospikeClient client, QueryPolicy policy, Statement statement) {
 		// This to query the records using secondary indexes.
 
+		boolean b = false;// boolean just to check if any record is fetched or not.
 		RecordSet rs = client.query(policy, statement);
 		try {
 			while (rs.next()) {
+				b = true;
 				Key key = rs.getKey();
 				Record record = rs.getRecord();
 				System.out.println(record.getLong("id") + "\t" + record.getString("first_name") + "\t"
 						+ record.getString("last_name"));
+			}
+
+			if (!b) {
+				System.out.println("Not Found !!!");
 			}
 		} finally {
 			rs.close();
