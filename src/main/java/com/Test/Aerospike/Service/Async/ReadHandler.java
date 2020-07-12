@@ -9,7 +9,12 @@ public class ReadHandler implements RecordListener{
 
 	@Override
 	public void onSuccess(Key key, Record record) {
-		System.out.println("Read successfull !!!");		
+		System.out.println("Read successfull !!!\n\n");
+		if(record !=null) {
+			System.out.println(record.getLong("id")+"  "+record.getString("first_name")+"  "+record.getString("last_name"));
+		}else {
+			System.out.println("No records !!!");
+		}
 	}
 
 	@Override

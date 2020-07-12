@@ -3,8 +3,10 @@ package com.Test.Aerospike.Service.Async;
 import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.Bin;
 import com.aerospike.client.Key;
+import com.aerospike.client.Record;
 import com.aerospike.client.async.EventLoop;
 import com.aerospike.client.async.EventLoops;
+import com.aerospike.client.policy.Policy;
 import com.aerospike.client.policy.WritePolicy;
 
 // # AerospikeClient provides asynchronous methods that take in 
@@ -17,6 +19,7 @@ public class AsynAerospikeService {
 
 	AerospikeClient client;
 	WriteHandler listener=new WriteHandler();
+	ReadHandler listener2=new ReadHandler();
 	EventLoops eventLoops;
 	EventLoop eventLoop;
 
@@ -27,8 +30,11 @@ public class AsynAerospikeService {
 		eventLoop=eventLoops.next();
 	}
 
-	public void writeRecords(WritePolicy policy, Key key, Bin[] bins) {
+	public void writeRecord(WritePolicy policy, Key key, Bin[] bins) {
 		client.put(eventLoop, listener, policy, key, bins);
 	}
 
+	public void readRecord(Policy policy,Key key) {
+		client.get(eventLoop, listener2, policy, key);		
+	}
 }

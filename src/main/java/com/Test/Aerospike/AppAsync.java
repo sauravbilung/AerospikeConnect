@@ -8,6 +8,7 @@ import com.aerospike.client.async.EventLoops;
 import com.aerospike.client.async.EventPolicy;
 import com.aerospike.client.async.NioEventLoops;
 import com.aerospike.client.policy.ClientPolicy;
+import com.aerospike.client.policy.Policy;
 import com.aerospike.client.policy.WritePolicy;
 
 public class AppAsync {
@@ -44,13 +45,14 @@ public class AppAsync {
 		 * WritePolicy policy = new WritePolicy(); policy.setTimeout(50); Key
 		 * writeKey=new Key("test", "myset", "key3"); Bin[] bins= {new Bin("id", 3),new
 		 * Bin("first_name", "Natasha"),new Bin("last_name", "Romanoff")};
-		 * service.writeRecords(policy, writeKey, bins);
+		 * service.writeRecord(policy, writeKey, bins);
 		 */
 
 		// ########### Reading a record ############################
 		Policy policy2 = new WritePolicy();
 		policy2.setTimeout(50);
-		
+		Key readKey=new Key("test", "myset", "key1");
+		service.readRecord(policy2, readKey);
 
 		// ########## Closing the connection and the resources #########
 		client.close();
