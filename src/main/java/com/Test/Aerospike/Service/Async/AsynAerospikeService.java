@@ -3,7 +3,6 @@ package com.Test.Aerospike.Service.Async;
 import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.Bin;
 import com.aerospike.client.Key;
-import com.aerospike.client.Record;
 import com.aerospike.client.async.EventLoop;
 import com.aerospike.client.async.EventLoops;
 import com.aerospike.client.policy.Policy;
